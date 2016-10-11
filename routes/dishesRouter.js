@@ -31,7 +31,7 @@ dishesRouter.use(bodyParser.json());
 //    res.end('Willd delete the dishe: '+ req.params.disheId);
 //});
 
-dishesRouter.router('/')
+dishesRouter.route('/')
     .get(function (req, res, next) {
         Dishes.find({}, function (err, dish) {
             if (err) throw err;
@@ -57,7 +57,7 @@ dishesRouter.router('/')
         });
     });
 
-dishesRouter.router('/:dishId')
+dishesRouter.route('/:dishId')
     .get(function (req, res, next) {
         Dishes.findById(req.params.dishId, function(err, dish){
             if(err) throw err;
@@ -82,7 +82,7 @@ dishesRouter.router('/:dishId')
         })
     });
 
-dishesRouter.router('/:dishId/comments')
+dishesRouter.route('/:dishId/comments')
     .get(function (req, res, next) {
         Dishes.findById(req.params.dishId, function (err, dish) {
             if (err) throw err;
@@ -116,7 +116,7 @@ dishesRouter.router('/:dishId/comments')
         })
     });
 
-dishesRouter.router('/:dishId/comments/:commentId')
+dishesRouter.route('/:dishId/comments/:commentId')
     .get(function (req, res, next) {
         Dishes.findById(req.params.dishId, function (err, dish) {
             if (err) throw err;
