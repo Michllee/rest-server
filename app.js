@@ -11,7 +11,9 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var dishesRouter = require('./routes/dishesRouter');
 var leaderRouter = require('./routes/leaderRouter');
+var artTmlRouter = require('./routes/artTemplateRouter');
 
+var template = require('art-template');
 var app = express();
 
 var url = 'mongodb://localhost:27017/conFusion';
@@ -27,7 +29,12 @@ db.once('open',function(){
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+//app.set('view engine', 'jade');
+// 使用art-template做模板引擎
+template.config('base', '');
+template.config('extname', '.html');
+app.engine('.html', template.__express);
+app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -41,6 +48,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/dishes',dishesRouter);
 app.use('/leader',leaderRouter);
+app.use('/arttemplate', artTmlRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
